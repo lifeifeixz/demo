@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>预览本地文件</title>
+</head>
+
+<body>
+    <!--预览本地图片-->
+    <input type="file" onchange="previewText()">
+    <img src="" height="200">
+    <div id="result"></div>
+
+    <script>  
+        //预览图片  
+        function previewImage() {
+            var preview = document.querySelector('img');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+            if (file) {
+                reader.readAsDataURL(file); //64为编码  
+            } else {
+                preview.src = "";
+            }
+        }
+        //预览文字  
+        function previewText() {
+            var preview = document.querySelector('#result');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                preview.innerHTML = reader.result;
+            };
+            if (file) {
+                reader.readAsText(file, "utf8");  //csv txt  
+            }
+        }
+
+    </script>
+</body>
+
+</html>

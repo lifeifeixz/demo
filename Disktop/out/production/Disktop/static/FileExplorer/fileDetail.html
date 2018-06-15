@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title id="title">文件下载</title>
+<style>	
+	#panel{
+		width:80%;
+		height:auto;
+		margin:0 auto;
+	}
+</style>
+</head>
+<body>
+	<div id="panel"></div>
+</body>
+<script type="text/javascript" src="../coupon/js/jquery.min.js"></script>
+<script type="text/javascript" src="../base/js/util.js"></script>
+<script type="text/javascript">
+	(function() {
+		/* var form = $("<form>");//定义一个form表单
+		form.attr("style", "display:none");
+		form.attr("target", "");
+		form.attr("method", "post");
+		form.attr("action", "/Coupon/FileExplorer");
+		var input1 = $("<input>");
+		input1.attr("type", "hidden");
+		input1.attr("name", "path");
+		//加密
+		input1.attr("value", decodeURI($.getParam(location.href,"path")));
+		var fileExplorer = $("<input>");
+		fileExplorer.attr("name","fileExplorer");
+		fileExplorer.attr("value","download");
+		$("body").append(form);//将表单放置在web中
+		form.append(input1);
+		form.append(fileExplorer);
+		form.submit();//表单提交 */
+		
+		var url = "/Coupon/FileExplorer?fileExplorer=download";
+		$("#title").text(decodeURI($.getParam(location.href,"path")));
+		$.ajax({
+			url : url,
+			data : {
+				path : decodeURI($.getParam(location.href,"path"))
+			},
+			type : "post",
+			async : false,
+			success : function(data) {
+				$("#panel").text(data);
+			}
+		});
+	})()
+</script>
+</html>

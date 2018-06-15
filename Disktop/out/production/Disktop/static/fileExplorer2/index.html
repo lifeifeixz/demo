@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../coupon/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		(function(){
+			$.ajax({
+				type:"post",
+				url:"http://localhost:8080/Coupon/FileExplorer",
+				async:true,
+				data:{fileExplorer:"open",path:"D:\\360WiFi"},
+				success:function(data){
+					console.log(data)
+				}
+			});
+		})()
+	</script>
+</html>

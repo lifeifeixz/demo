@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 99%;
+            min-height: 700px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+
+        .func {
+            height: 700px;
+            float: left;
+        }
+
+        .wheelArea {
+            width: 20%;
+            background: #cccccc;
+        }
+
+        .panel {
+            width: 60%;
+            background: #fff;
+        }
+
+        .control-bar {
+            width: 19%;
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="func wheelArea">
+            <button class="abrasive">button</button>
+            <button class="abrasive">input</button>
+            <button class="abrasive">textarea</button>
+            <button class="abrasive">radio</button>
+            <button class="abrasive">checkbox</button>
+            <hr>
+            <button class="abrasive">h1</button>
+            <button class="abrasive">h2</button>
+            <button class="abrasive">h3</button>
+            <button class="abrasive">h4</button>
+            <button class="abrasive">h5</button>
+            <button class="abrasive">p</button>
+        </div>
+        <div class="func panel"></div>
+        <div class="func control-bar"></div>
+    </div>
+</body>
+<script src="wheel.js"></script>
+<script>
+
+    class Factory {
+
+        constructor(wheel) {
+            this.wheel = wheel;
+        }
+        show() {
+            console.log(this.wheel)
+        }
+
+        init() {
+            // 给所有轮子的磨具初始化监听事件
+            let abrasives = document.getElementsByClassName("abrasive");
+            for (let i = 0; i < abrasives.length; i++) {
+                abrasives[i].addEventListener("click",function (e) {
+                    console.log(this)
+                });
+            }
+
+        }
+
+    }
+    let f = new Factory(wheel);
+    f.init();
+    f.show();
+
+
+</script>
+
+</html>

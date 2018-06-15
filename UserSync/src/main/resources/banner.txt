@@ -1,0 +1,15 @@
+
+╭⌒╮┅~ ¤　 ╭⌒╮ ╭⌒╮ 
+╭⌒╭⌒╮╭⌒╮～╭⌒╮︶︶,　︶︶ 
+,︶︶︶︶,''︶~~ ,''~︶︶　 ,'' 
+╬　╱◥███◣╬╬╬╬ 
+╬ ︱田︱田 田 ︱　　　　　　　　　  
+　　　　　　　　　　　　　　　　
+  　╭○╮● 　　  
+  　 /■\/■\           
+  　　<|　||　　　放开那妹子！让我来！
+
+application.version             : ${application.version}
+application.formatted-version   : ${application.formatted-version}
+spring-boot.version             : ${spring-boot.version}
+spring-boot.formatted-version   : ${spring-boot.formatted-version}

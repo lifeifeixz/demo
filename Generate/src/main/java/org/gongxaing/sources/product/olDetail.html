@@ -1,0 +1,80 @@
+<html>
+ <head></head> 
+ <body> 
+  <el-row class="detail-rows" v-loading="loading"> 
+   <!-- 返回上一页 --> 
+   <el-row :span="4" :offset="20" style="text-align: right;"> 
+    <el-button size="small" @click="goto('poolComplainRecord',{})" type="primary">
+      返回上一页 
+    </el-button> 
+   </el-row> 
+   <!-- 正文 --> 
+   <el-row :gutter="20" class="row">  
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       车牌号： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       车辆所在地： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       车辆归属： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       车牌型号： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       油卡编号： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       历史充值金额： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       当前余额： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+    <el-col :span="6" class="item"> 
+     <el-col :span="8" class="detail-lab">
+       开卡日期： 
+     </el-col> 
+     <el-col :span="16" class="detail-value">
+       &nbsp;{{obj.id}} 
+     </el-col> 
+    </el-col>
+   </el-row> 
+  </el-row>  
+ </body>
+</html>

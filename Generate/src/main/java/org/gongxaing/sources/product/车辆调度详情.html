@@ -1,0 +1,202 @@
+<html>
+<head></head>
+<body>
+<el-row class="detail-rows" v-loading="loading">
+    <!-- 返回上一页 -->
+    <el-row :span="4" :offset="20" style="text-align: right;">
+        <el-button size="small" @click="goto('poolComplainRecord',{})" type="primary">
+            返回上一页
+        </el-button>
+    </el-row>
+    <!-- 正文 -->
+    <el-row :gutter="24" class="row">
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                车辆牌号：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                车辆型号：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                车辆归属：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                车辆所在地：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                调度订单ID：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                派单时间：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                派单账户：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                供应商名称：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                车辆所在位置：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                接单时间：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                接单手机号：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                租车调度订单ID：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                完成时间：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                调度地点：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                剩余油量：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                待运时长：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                实际行驶里程：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                预计行驶里程：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                预计行驶时长：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+        <el-col :span="8" class="item">
+            <el-col :span="8" class="detail-lab">
+                实际行驶时长：
+            </el-col>
+            <el-col :span="16" class="detail-value">
+                &nbsp;{{obj.id}}
+            </el-col>
+        </el-col>
+    </el-row>
+</el-row>
+<style>
+
+    .detail-lab, .detail-val {
+        display: block;
+        float: left;
+    }
+
+    .detail-lab {
+        font-weight: 600;
+        text-align: right;
+    }
+
+    .detail-val {
+        width: 70%;
+    }
+
+    .detail-rows {
+        background: #fff;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .item {
+        margin-bottom: 10px;
+    }
+</style>
+</body>
+</html>

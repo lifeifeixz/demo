@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // Proxy代理对象
+   var target={};
+    var proxy = new Proxy(target, {
+        get: function (target, property) {
+            console.log(property);
+            return target[property];
+        }
+    });
+
+    proxy.time // 35
+    proxy.name // 35
+     // 35
+    console.log(proxy.title);
+</script>
+
+</html>

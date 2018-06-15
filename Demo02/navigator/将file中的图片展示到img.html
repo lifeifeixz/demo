@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		
+		<input type="file" name="file" id="file" />
+		<img src="img" id="IDCARDpreview"/>
+		<button onclick="fetch()">fetch</button>
+	</body>
+
+	<script type="text/javascript">
+		function fetch(){
+			var imgObjPreview = document.getElementById("IDCARDpreview");
+			 imgObjPreview.src = "data:image/jpeg;base64,"+returndata.cardsinfo[0].items[7].content;       (returndata.cardsinfo[0].items[7].content就是我的数据流)
+		}
+	</script>
+
+</html>

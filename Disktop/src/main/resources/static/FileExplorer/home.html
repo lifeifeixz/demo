@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>文件资源管理器</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet"
+          href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet"
+          href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../base/css/base.css"/>
+    <style type="text/css">
+        button {
+            outline: none;
+        }
+
+        div {
+
+        }
+
+        .box {
+            width: 100%;
+            height: 600px;
+            /* 	border: 1px solid #e5e5e5; */
+        }
+
+        .header {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .files {
+            /* overflow: scroll; */
+            height: 500px;
+        }
+
+        .file {
+            width: 60px;
+            height: 100px;
+            margin: 10px;
+            float: left;
+            transition: all .5 linear;
+            border: 1px solid #fff;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .file:hover {
+            border: 1px solid #cccccc;
+        }
+
+        .file .file-icon {
+            text-align: center;
+            height: 50px;
+            /* background: url("img/noType.png") no-repeat;
+            background-size: 60% 60%;
+            background-position: 20% 20%; */
+        }
+
+        .file img {
+            width: 80%;
+        }
+
+        .file .file-name {
+            font-size: 12px;
+            text-align: center;
+            word-break: break-all;
+            color: #666;
+            height: 16px;
+        }
+
+        .createDate {
+            display: none;
+        }
+
+        /*列表样式*/
+        .file-list {
+            width: 700px;
+            height: 20px;
+            margin: 0px;
+            line-height: 20px;
+            transition: all .5 linear;
+            border: 1px solid #fff;
+            cursor: pointer;
+        }
+
+        .focus {
+            background: #CCCCCC;
+        }
+
+        .file:hover {
+            text-shadow: rgb(255, 255, 255) 0px 1px 0px;
+            background-image: linear-gradient(rgb(255, 255, 255) 0px,
+            rgb(224, 224, 224) 100%);
+            background-repeat: repeat-x;
+            border-color: rgb(204, 204, 204);
+            border-radius: 2px;
+            color: red;
+        }
+
+        .file-list .file-icon {
+            text-align: center;
+            float: left;
+            /* background: url("img/noType.png") no-repeat; */
+        }
+
+        .file-list img {
+            width: 15px;
+        }
+
+        .file-list .file-name {
+            margin-left: 10px;
+            float: left;
+            font-size: 12px;
+            text-align: center;
+            color: #666;
+        }
+
+        .file-list .createDate {
+            font-size: 12px;
+            display: block;
+            color: #666;
+            float: right;
+        }
+
+        .local {
+            width: 60%;
+        }
+    </style>
+
+</head>
+<body>
+<div class="box" id="box">
+    <ol class="breadcrumb">
+        <li><a href="#">主页</a></li>
+        <li><a href="#">优惠券</a></li>
+        <li class="active">文件资源管理</li>
+    </ol>
+    <div class="header">
+        位置:<input class="local form-control" style="display: inline-block;"
+                  type="text" value="" v-model="fileExplorer.path">
+        <button class="btn btn-sm btn-success"
+                v-on:click="find()">
+            <i class="glyphicon glyphicon-export"></i> 转到
+        </button>
+        <!-- 创建 -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger btn-sm">新增</button>
+            <button type="button" class="btn btn-danger btn-sm dropdown-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span> <span class="sr-only">Toggle
+						Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" v-on:click="create()"><i
+                        class="glyphicon glyphicon-folder-close"></i> 新建文件夹</a></li>
+                <li><a data-toggle="modal" data-target="#myModal" href="#"><i
+                        class="glyphicon glyphicon-cloud-upload"></i> 上传</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <button class="btn btn-sm btn-default"
+                v-on:click="find(fileExplorer.parentPath)">
+            <i class="glyphicon glyphicon-backward"></i> 返回上一页
+        </button>
+        <a v-on:click="style()" class="btn" id="listInfo"> <i
+                v-if="!listStyle" class="glyphicon glyphicon-th-list"></i> <i
+                v-if="listStyle" class="glyphicon glyphicon-th"></i>
+        </a>
+    </div>
+    <div class="files">
+        <div class="file" v-bind:class="{'file-list':listStyle}"
+             v-bind:title="item.fileName+'    '+item.createDate"
+             v-on:click="find(item)" v-for="(item,index) in fileExplorer.sons">
+            <div v-if="item.isDirectory" class="file-icon">
+                <img src="img/floder.png"/>
+            </div>
+            <div v-if="!item.isDirectory" class="file-icon">
+                <!-- 文件夹 -->
+                <img v-if="item.fileName.indexOf('.js')>-1"
+                     v-bind:title="item.fileName" src="img/js.png"/> <img
+                    v-else-if="item.fileName.indexOf('.png')>-1"
+                    v-bind:title="item.fileName" src="img/png.png"/> <img
+                    v-else-if="item.fileName.indexOf('.html')>-1"
+                    v-bind:title="item.fileName" src="img/html.png"/> <img
+                    v-else-if="item.fileName.indexOf('.java')>-1"
+                    v-bind:title="item.fileName" src="img/java.png"/> <img
+                    v-else-if="item.fileName.indexOf('.txt')>-1"
+                    v-bind:title="item.fileName" src="img/file.png"/> <img
+                    v-else-if="item.fileName.indexOf('.jpg')>-1"
+                    v-bind:title="item.fileName" src="img/jpg.png"/> <img
+                    v-else-if="item.fileName.indexOf('.xml')>-1"
+                    v-bind:title="item.fileName" src="img/xml.png"/> <img
+                    v-else-if="item.fileName.indexOf('.jar')>-1"
+                    v-bind:title="item.fileName" src="img/jar.png"/> <img v-else
+                                                                          v-bind:title="item.fileName"
+                                                                          src="img/noType.png"/>
+            </div>
+            <div class="file-name">{{item.fileName}}</div>
+            <div class="createDate">{{item.createDate}}</div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">文件上传</h4>
+                </div>
+                <div class="modal-body" id="fileUploadModal">
+                    <form name="fileupform" enctype="multipart/form-data"
+                          id="uploadFile" method="post" action="/Coupon/FileUpload">
+                        <input type="file" name="file" class="form-control"/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on:click="upload()">提交至服务器
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"
+        type="text/javascript" charset="utf-8"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        $(".file").click(function () {
+            $(this).addClass("focus");
+        });
+
+        //初始化根目录
+        box.find();
+    }
+
+    var box = new Vue({
+        el: "#box",
+        data: {
+            param: {
+                fileExplorer: "open",
+                path: null
+            },
+            fileExplorer: {
+                path: null
+            },
+            listStyle: false
+        },
+        methods: {
+            find: function (obj) {
+                if (obj != null) {
+                    box.param.path = obj.path;
+                } else {
+                    box.param.path = box.fileExplorer.path;
+                }
+                console.log(box.param.path);
+                $.ajax({
+                    type: "post",
+                    url: "/disktop/path",
+                    async: true,
+                    data: {path: box.param.path},
+                    success: function (data) {
+                        if (data != null) {
+                            box.fileExplorer = data;
+                        }
+                    }
+                });
+            },
+            upload: function () {
+                var formData = new FormData(document
+                    .getElementById("uploadFile"));
+                $("#fileUploadModal").append(msg("文件上传中...", "warning"));
+                formData.append("path", box.fileExplorer.path);
+                $.ajax({
+                    url: "/Coupon/FileUpload?reqType=uploadCouponFile",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        $("#fileUploadModal").append(msg(data, "success"));
+                    }
+                });
+            },
+            style: function () {
+                if (box.listStyle) {
+                    box.listStyle = false;
+                } else {
+                    box.listStyle = true;
+                }
+            }
+        }
+    });
+
+    Vue.filter("len", function (val) {
+        if (val.length > 10) {
+            return val.substring(0, 10);
+        }
+        return val;
+    });
+
+    //定义icon组件
+    Vue.component('icon-component', {
+        template: "<img src=''/>"
+    })
+
+    function msg(msg, type) {
+        return "<div role='alert' class='alert alert-" + type + " alert-dismissible fade in'><button type='button' data-dismiss='alert' aria-label='Close' class='close'><span aria-hidden='true'>×</span></button> <strong>消息提示!</strong> "
+            + msg + "</div>";
+    }
+
+    //判断是否是文件夹
+    function isDirectory(arr, path) {
+        for (var i = 0; i < arr.length; i++) {
+            if (path === arr[i].path) {
+                if (arr[i].isDirectory) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+</script>
+
+</html>

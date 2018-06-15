@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    config:
+      uri: http://${config.server:172.16.246.31}:8021
+      name: user
+      env: default
+      label: aliyun_dev
+      profile: ${config.profile:dev}
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true

@@ -1,0 +1,109 @@
+#base
+base:
+  webUrl: http://192.168.95.13:8000/api/v1
+  springBootAdminUrl: http://192.168.95.13:8888
+  picPath: D:/pic/ms
+  picShowUri: localhost:8080/pic/ms
+  picCdnUri:
+  includeUrlPattern: [ /user ]
+  jsonpCallbackName: ['jsonp_callback']
+
+#http
+http:
+  orderUrl: http://192.168.95.13:8007/api/v1/order
+  walletUrl: http://192.168.95.13:8004/api/v1/wallet
+  notificationUrl: http://192.168.95.13:8005/api/v1/message
+
+#info
+info:
+  app:
+    name: user-service
+    description: user-service
+    version: 1.0.0
+  swagger: ${base.webUrl}/swagger-ui.html
+
+idWorker:
+  workerId: 1
+  dataCenterId: 2
+
+#server
+server:
+  port: 8060
+  context-path: /api/v1
+  compression:
+    min-response-size: 128
+    enabled: true
+    mime-types: text/html,text/css,text/javascript,application/javascript,image/gif,image/png,image/jpg
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+  health:
+    defaults:
+      enabled: true
+#spring
+spring:
+  application:
+    name: user-service
+  session:
+    store-type: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/pay?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useOldAliasMetadataBehavior=true&autoReconnect=true
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+  boot:
+    admin:
+      url: ${base.springBootAdminUrl}
+      username: user
+      password: pass
+      client:
+        prefer-ip: true
+        management-url: ${base.webUrl}
+        service-url: ${base.webUrl}
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      location: d:/data/www/temp
+      max-file-size: 10Mb
+      max-request-size: 10Mb
+      resolve-lazily: false
+  data:
+    redis:
+      repositories:
+        enabled: false
+    mongodb:
+      host: 116.62.136.224
+      port: 20002
+      username: develop
+      password: 'mongo_dev_travel_develop_Password89757'
+      authentication-database: travel
+      database: travel
+      grid-fs-database: travel
+      repositories:
+        enabled: true
+  redis:
+    host: 116.62.136.224
+    port: 20003
+    database: 1
+    password: redis_dev_Password3478
+    timeout: 1000
+    pool:
+      min-idle: 0
+      max-idle: 8
+      max-active: 8
+      max-wait: -1
+  devtools:
+    livereload:
+      enabled: false
+#log
+logging:
+  config: classpath:logback-online.xml
+  path: /data/log/com.baixiang.chuxing.user/logs

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true" >
+
+    <contextName>dev</contextName>
+
+    <property name="LOG_HOME" value="/data/log/com.baixiang.chuxing.user/logs" />
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily 配置日志所生成的目录以及生成文件名的规则 -->
+            <fileNamePattern>${LOG_HOME}/debugLog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 30 MB -->
+                <maxFileSize>30 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <logger name="com.baixiang.chuxing.user" level="DEBUG"/>
+    <logger name="org.springframework" level="DEBUG"/>
+    <logger name="org.springframework.scheduling" level="INFO"/>
+
+
+    <!-- druid 日志输出 additivity="false" 表示日志不向上一级输入 -->
+    <!--<logger name="com.st.user.dev.config.MyStatLogger" level="INFO" additivity="false">-->
+        <!--<appender-ref ref="DURID"/>-->
+    <!--</logger>-->
+
+</configuration>
